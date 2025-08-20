@@ -352,7 +352,7 @@ const ShoppingCart: React.FC<{ cartItems: CartItem[] }> = ({ cartItems }) => {
               ))}
             </div>
             
-            {/* <div className="p-6 border-t">
+            <div className="p-6 border-t">
               <div className="flex flex-col sm:flex-row gap-4">
                 <input
                   type="text"
@@ -368,7 +368,7 @@ const ShoppingCart: React.FC<{ cartItems: CartItem[] }> = ({ cartItems }) => {
                   Apply Coupon
                 </button>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
         

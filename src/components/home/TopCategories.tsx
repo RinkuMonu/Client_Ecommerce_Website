@@ -86,6 +86,7 @@ export default function TopCategories() {
         if (Array.isArray(data.website?.categories)) {
           const categoryNames = data.website.categories.map((cat: any) => cat.name)
           setCategories(categoryNames)
+          console.log(categoryNames,"Category Name")
         } else {
           console.warn("Categories not found in response:", data)
           setCategories(["Suits", "Sarees", "Fabrics", "Men's Wear", "Women's Wear", "Accessories"])

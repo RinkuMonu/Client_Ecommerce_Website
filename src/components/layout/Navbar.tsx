@@ -471,6 +471,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
                               <Link
                                 to={`/category/${slugify(item?.name)}`}
                                 className="flex items-center px-4 py-2.5 text-sm group/link transition-colors duration-200"
+                                  onClick={() => setMenuOpen(false)} 
                               >
                                 <span className="relative truncate">
                                   {item?.name}

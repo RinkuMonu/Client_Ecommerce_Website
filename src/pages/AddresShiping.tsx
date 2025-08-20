@@ -760,7 +760,7 @@ function AddressShipping({ cartItems }) {
               </div>
 
               {/* Coupon Section */}
-              {/* <div className="mt-6">
+              <div className="mt-6">
                 <div className="flex items-center gap-2 mb-3">
                   <Wallet className="w-4 h-4 text-gray-500" />
                   <span className="font-medium text-gray-900">Available Coupons</span>
@@ -814,7 +814,7 @@ function AddressShipping({ cartItems }) {
                     </button>
                   </div>
                 )}
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
