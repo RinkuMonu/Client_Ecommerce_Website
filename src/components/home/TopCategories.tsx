@@ -4,89 +4,97 @@ import { Link } from "react-router-dom"
 import { ArrowRight, Sparkles } from "lucide-react"
 // import Img from '../../assest/saree.webp'
 
-const styleMap: Record<string, any> = {
-  "Kalmkari Print Fabric": {
-    color: "rgb(157 48 137)",
-    lightColor: "rgba(157, 48, 137, 0.1)",
-    count: "320+ Products",
-    image: "/saree1.webp",
-  },
-  "Cotton mal mal saree": {
-    color: "rgb(157 48 137)",
-    lightColor: "rgba(157, 48, 137, 0.1)",
-    count: "450+ Products",
-    image: "/saree2.webp",
-  },
-  "Chanderi Silk saree": {
-    color: "rgb(157 48 137)",
-    lightColor: "rgba(157, 48, 137, 0.1)",
-    count: "180+ Products",
-    image: "/saree3.webp",
-  },
-  "Maheswari Silk saree": {
-    color: "rgb(157 48 137)",
-    lightColor: "rgba(157, 48, 137, 0.1)",
-    count: "210+ Products",
-    image: "/saree4.webp",
-  },
-  "Kota Doriya Saree": {
-    color: "rgb(157 48 137)",
-    lightColor: "rgba(157, 48, 137, 0.1)",
-    count: "380+ Products",
-    image: "/saree5.webp",
-  },
-  "Cotton Suit": {
-    color: "rgb(157 48 137)",
-    lightColor: "rgba(157, 48, 137, 0.1)",
-    count: "150+ Products",
-    image: "/saree6.webp",
-  },
-  "Sanganeri Print Fabric": {
-    color: "rgb(157 48 137)",
-    lightColor: "rgba(157, 48, 137, 0.1)",
-    count: "160+ Products",
-    image: "/saree7.webp",
-  },
-  "Dabu Print Fabric": {
-    color: "rgb(157 48 137)",
-    lightColor: "rgba(157, 48, 137, 0.1)",
-    count: "140+ Products",
-    image: "/saree8.webp",
-  },
-  "Bagru Print": {
-    color: "rgb(157 48 137)",
-    lightColor: "rgba(157, 48, 137, 0.1)",
-    count: "130+ Products",
-    image: "/saree9.webp",
-  },
-  "Cotton Suit In Kota": {
-    color: "rgb(157 48 137)",
-    lightColor: "rgba(157, 48, 137, 0.1)",
-    count: "170+ Products",
-    image: "/saree10.webp",
-  },
-  "Chanderi Silk Suits": {
-    color: "rgb(157 48 137)",
-    lightColor: "rgba(157, 48, 137, 0.1)",
-    count: "190+ Products",
-    image: "/saree11.webp",
-  },
-}
+// const styleMap: Record<string, any> = {
+//   "Kalmkari Print Fabric": {
+//     color: "rgb(157 48 137)",
+//     lightColor: "rgba(157, 48, 137, 0.1)",
+//     count: "320+ Products",
+//     image: "/saree1.webp",
+//   },
+//   "Cotton mal mal saree": {
+//     color: "rgb(157 48 137)",
+//     lightColor: "rgba(157, 48, 137, 0.1)",
+//     count: "450+ Products",
+//     image: "/saree2.webp",
+//   },
+//   "Chanderi Silk saree": {
+//     color: "rgb(157 48 137)",
+//     lightColor: "rgba(157, 48, 137, 0.1)",
+//     count: "180+ Products",
+//     image: "/saree3.webp",
+//   },
+//   "Maheswari Silk saree": {
+//     color: "rgb(157 48 137)",
+//     lightColor: "rgba(157, 48, 137, 0.1)",
+//     count: "210+ Products",
+//     image: "/saree4.webp",
+//   },
+//   "Kota Doriya Saree": {
+//     color: "rgb(157 48 137)",
+//     lightColor: "rgba(157, 48, 137, 0.1)",
+//     count: "380+ Products",
+//     image: "/saree5.webp",
+//   },
+//   "Cotton Suit": {
+//     color: "rgb(157 48 137)",
+//     lightColor: "rgba(157, 48, 137, 0.1)",
+//     count: "150+ Products",
+//     image: "/saree6.webp",
+//   },
+//   "Sanganeri Print Fabric": {
+//     color: "rgb(157 48 137)",
+//     lightColor: "rgba(157, 48, 137, 0.1)",
+//     count: "160+ Products",
+//     image: "/saree7.webp",
+//   },
+//   "Dabu Print Fabric": {
+//     color: "rgb(157 48 137)",
+//     lightColor: "rgba(157, 48, 137, 0.1)",
+//     count: "140+ Products",
+//     image: "/saree8.webp",
+//   },
+//   "Bagru Print": {
+//     color: "rgb(157 48 137)",
+//     lightColor: "rgba(157, 48, 137, 0.1)",
+//     count: "130+ Products",
+//     image: "/saree9.webp",
+//   },
+//   "Cotton Suit In Kota": {
+//     color: "rgb(157 48 137)",
+//     lightColor: "rgba(157, 48, 137, 0.1)",
+//     count: "170+ Products",
+//     image: "/saree10.webp",
+//   },
+//   "Chanderi Silk Suits": {
+//     color: "rgb(157 48 137)",
+//     lightColor: "rgba(157, 48, 137, 0.1)",
+//     count: "190+ Products",
+//     image: "/saree11.webp",
+//   },
+// }
 
 export default function TopCategories() {
   const [categories, setCategories] = useState<string[]>([])
   const baseUrl = import.meta.env.VITE_API_BASE_URL
   const referenceWebsite = import.meta.env.VITE_REFERENCE_WEBSITE
-
+  // console.log(categories);
+  const linkUrl = (text) => {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-"); // space ko hyphen me badal do
+  };
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const res = await fetch(`${baseUrl}/website/${referenceWebsite}`)
         const data = await res.json()
+        console.log(data);
+
         if (Array.isArray(data.website?.categories)) {
-          const categoryNames = data.website.categories.map((cat: any) => cat.name)
-          setCategories(categoryNames)
-          console.log(categoryNames,"Category Name")
+          // const categoryNames = data.website.categories.map((cat: any) => cat.name)
+          setCategories(data.website?.categories)
+          // console.log(categoryNames, "Category Name")
         } else {
           console.warn("Categories not found in response:", data)
           setCategories(["Suits", "Sarees", "Fabrics", "Men's Wear", "Women's Wear", "Accessories"])
@@ -107,14 +115,14 @@ export default function TopCategories() {
           <div className="inline-flex items-center justify-center mb-6">
             <span
               className="text-sm font-semibold px-6 py-3 underline inline-flex items-center gap-2 "
-              // style={{
-              //   color: "rgb(157 48 137)",
-              //   borderColor: "rgb(157 48 137)",
-              // }}
+            // style={{
+            //   color: "rgb(157 48 137)",
+            //   borderColor: "rgb(157 48 137)",
+            // }}
             >
               <Sparkles className="w-4 h-4" />
               Heritage Collections
-               <Sparkles className="w-4 h-4" />
+              <Sparkles className="w-4 h-4" />
             </span>
           </div>
 
@@ -130,15 +138,16 @@ export default function TopCategories() {
         {/* Categories Grid with Images */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {categories.map((name, index) => {
-            const styles = styleMap[name] || {
-              color: "rgb(157 48 137)",
-              lightColor: "rgba(157, 48, 137, 0.1)",
-              count: "100+ Products",
-              image: "/saree12.webp",
-            }
+
+            // const styles = styleMap[name?.name] || {
+            //   color: "rgb(157 48 137)",
+            //   lightColor: "rgba(157, 48, 137, 0.1)",
+            //   count: "100+ Products",
+            //   image: "/saree12.webp",
+            // }
 
             return (
-              <Link key={name} to={`/category/${name.toLowerCase()}`} className="group block">
+              <Link key={index} to={`/category/${linkUrl(name?.name)}`} className="group block">
                 <div
                   className="bg-white rounded-xl border-2 overflow-hidden h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
                   style={{
@@ -156,9 +165,10 @@ export default function TopCategories() {
                   {/* Image Section */}
                   <div className="relative h-48 overflow-hidden">
                     <img
-                      src={styles.image || "/placeholder.svg"}
-                      // src={`http://api.jajamblockprints.com${styles.image}`}
-                      alt={name}
+                      // src={styles.image || "/placeholder.svg"}
+                      // src={`http://api.jajamblockprints.com${categories?.image}`}
+                      src={`http://api.jajamblockprints.com${name?.image}` || "/placeholder.svg"}
+                      alt={name?.name}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
 
@@ -176,7 +186,7 @@ export default function TopCategories() {
                     </div> */}
 
                     {/* Product Count Badge */}
-                    <div className="absolute top-4 right-4">
+                    {/* <div className="absolute top-4 right-4">
                       <div
                         className="px-3 py-1 rounded-full text-xs font-medium text-white backdrop-blur-sm"
                         style={{
@@ -185,7 +195,7 @@ export default function TopCategories() {
                       >
                         {styles.count}
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* Hover Overlay with Arrow */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -205,7 +215,7 @@ export default function TopCategories() {
                       className="text-xl font-bold mb-3 group-hover:text-purple-900 transition-colors"
                       style={{ color: "#1B2E4F" }}
                     >
-                      {name}
+                      {name?.name}
                     </h3>
 
                     {/* Simple Divider */}
@@ -215,9 +225,13 @@ export default function TopCategories() {
                     />
 
                     {/* Description */}
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                      Explore our premium collection of {name.toLowerCase()} with authentic craftsmanship and quality
+                    {/* <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                      Explore our premium collection of {name?.name.toLowerCase()} with authentic craftsmanship and quality
                       materials.
+                    </p> */}
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                      {name?.description ? name?.description : `Explore our premium collection of ${name?.name.toLowerCase()} with authentic craftsmanship and quality
+                      materials.` }
                     </p>
 
                     {/* Explore Link */}
