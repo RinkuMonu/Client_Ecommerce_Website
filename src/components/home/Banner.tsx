@@ -26,7 +26,7 @@ const Banner: React.FC = () => {
   const [deviceType, setDeviceType] = useState<"mobile" | "desktop">("desktop");
   const [categories, setCategories] = useState<string[]>([]);
   const [isNewArrival, setIsNewArrival] = useState(false);
-console.log(banners,"banneres ")
+  
   // ✅ Detect "new arrivals" banner
   useEffect(() => {
     const hasNewArrivalBanner = banners.some(

@@ -21,54 +21,54 @@ export default function CategoryPage() {
   })
   const referenceWebsite = import.meta.env.VITE_REFERENCE_WEBSITE
   const baseUrl = import.meta.env.VITE_API_BASE_URL
-const sizeOptions = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+  const sizeOptions = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
   // Initialize products
-useEffect(() => {
-  const fetchProducts = async () => {
-    try {
-      const queryParams = new URLSearchParams({
-        referenceWebsite,
-        ...(catagory1 && { category: catagory1 }),
-        minPrice: priceRange[0].toString(),
-        maxPrice: priceRange[1].toString(),
-        sortBy: sortBy === "price-low" ? "actualPrice" :
-                sortBy === "price-high" ? "actualPrice" :
-                "createdAt",
-        sortOrder: sortBy === "oldest" ? "asc" :
-                   sortBy === "price-low" ? "asc" :
-                   "desc",
-        page: "1",   // default page
-        limit: "100", // You can adjust this as needed
-      })
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const queryParams = new URLSearchParams({
+          referenceWebsite,
+          ...(catagory1 && { category: catagory1 }),
+          minPrice: priceRange[0].toString(),
+          maxPrice: priceRange[1].toString(),
+          sortBy: sortBy === "price-low" ? "actualPrice" :
+            sortBy === "price-high" ? "actualPrice" :
+              "createdAt",
+          sortOrder: sortBy === "oldest" ? "asc" :
+            sortBy === "price-low" ? "asc" :
+              "desc",
+          page: "1",   // default page
+          limit: "100", // You can adjust this as needed
+        })
 
-      const res = await fetch(`${baseUrl}/product/getproducts?${queryParams.toString()}`)
-      const data = await res.json()
+        const res = await fetch(`${baseUrl}/product/getproducts?${queryParams.toString()}`)
+        const data = await res.json()
 
-      if (Array.isArray(data.products)) {
-        setProducts(data.products)
-        // Optional: setPagination(data.pagination)
-      } else {
-        console.error("Unexpected products format:", data)
+        if (Array.isArray(data.products)) {
+          setProducts(data.products)
+          // Optional: setPagination(data.pagination)
+        } else {
+          console.error("Unexpected products format:", data)
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error)
       }
-    } catch (error) {
-      console.error("Error fetching products:", error)
     }
-  }
 
-  fetchProducts()
-}, [baseUrl, referenceWebsite, catagory1, priceRange, sortBy])
+    fetchProducts()
+  }, [baseUrl, referenceWebsite, catagory1, priceRange, sortBy])
 
 
   useEffect(() => {
     const filtered = products.filter((product) => {
       const priceMatch = product.actualPrice >= priceRange[0] && product.actualPrice <= priceRange[1]
-     if (selectedSizes.length === 0) return priceMatch
-    
+      if (selectedSizes.length === 0) return priceMatch
+
       if (!product.size) return false
-      
+
       // Only show products that match selected sizes
       return priceMatch && selectedSizes.includes(product.size.toUpperCase())
-    
+
     })
 
     const sorted = filtered.sort((a, b) => {
@@ -87,10 +87,10 @@ useEffect(() => {
     setFilteredProducts(sorted)
   }, [products, priceRange, sortBy, selectedSizes])
 
-const handleSizeChange = (size: string) => {
-    setSelectedSizes(prev => 
-      prev.includes(size) 
-        ? prev.filter(s => s !== size) 
+  const handleSizeChange = (size: string) => {
+    setSelectedSizes(prev =>
+      prev.includes(size)
+        ? prev.filter(s => s !== size)
         : [...prev, size]
     )
   }
@@ -106,7 +106,7 @@ const handleSizeChange = (size: string) => {
   }
 
 
-  console.log("filter", filteredProducts)
+  // console.log("filter", filteredProducts)
 
   return (
     <div className="min-h-screen bg-white">
@@ -114,7 +114,7 @@ const handleSizeChange = (size: string) => {
         {/* Header Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold capitalize mb-4" style={{ color: "#1B2E4F" }}>
-            {category?.replace("-", " ") || "All Products"}
+            {category?.replace(/-/g, " ") || "All Products"}
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Discover our curated collection of{" "}
@@ -163,11 +163,10 @@ const handleSizeChange = (size: string) => {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters Sidebar */}
           <div
-            className={`lg:w-80 space-y-6 ${
-              showFilters
-                ? "fixed inset-0 z-50 bg-white p-6 overflow-y-auto"
-                : "hidden lg:block bg-white rounded-xl shadow-sm p-6 border border-gray-100"
-            }`}
+            className={`lg:w-80 space-y-6 ${showFilters
+              ? "fixed inset-0 z-50 bg-white p-6 overflow-y-auto"
+              : "hidden lg:block bg-white rounded-xl shadow-sm p-6 border border-gray-100"
+              }`}
           >
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-bold" style={{ color: "#1B2E4F" }}>
@@ -274,9 +273,9 @@ const handleSizeChange = (size: string) => {
               )}
             </div>
 
-                  
-     
-          {/* <div className="space-y-3">
+
+
+            {/* <div className="space-y-3">
             {sizeOptions.map((size) => (
               <label key={size} className="flex items-center space-x-3 cursor-pointer group">
                 <div className="relative">
@@ -308,7 +307,7 @@ const handleSizeChange = (size: string) => {
               </label>
             ))}
           </div> */}
-        
+
 
             <button
               onClick={resetFilters}
