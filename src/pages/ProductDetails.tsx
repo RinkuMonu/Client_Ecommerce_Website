@@ -404,10 +404,10 @@ const ProductDetails = ({ addToCart }: ProductDetailsProps) => {
             <div>
               <span className="font-semibold">Availability:</span>{" "}
               <span
-                className={`font-medium ${product?.stock ? "text-green-600" : "text-red-600"
+                className={`font-medium ${product?.stock <= 0? "text-red-600" : "text-green-600"
                   }`}
               >
-                {product?.stock ? "In stock" : "Out of stock"}
+                {product?.stock <= 0 ? "Out Of Stock" : "In stock"}
               </span>
             </div>
           </div>
