@@ -77,8 +77,11 @@ const ProductDetails = ({ addToCart }: ProductDetailsProps) => {
         const response = await fetch(`${baseUrl}/sendreview/${id}`);
         const data = await response.json();
         setReview(data);
-        console.log(data);
-      } catch (err) {}
+        // console.log(data);
+      } catch (err) {
+        console.log(err);
+
+      }
     };
 
     if (id) {
@@ -89,21 +92,24 @@ const ProductDetails = ({ addToCart }: ProductDetailsProps) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        // All Products
         const res = await fetch(
           `${baseUrl}/product/getproducts?referenceWebsite=${referenceWebsite}`
         );
-        const data = await res.json();
-        if (Array.isArray(data.products)) {
-          setAllProducts(data.products);
-          const matched = data.products.find(
-            (item: Product) => item._id === id
-          );
-          setProduct(matched || null);
-          if (matched && matched.images && matched.images.length > 0) {
-            setMainImage(matched.images[0]);
-          } else {
-            setMainImage("/placeholder.svg?height=600&width=600");
-          }
+        const allData = await res.json();
+        setAllProducts(allData.products);
+
+        // Single Product
+        const response = await fetch(
+          `${baseUrl}/product/getproduct/${id}?referenceWebsite=${referenceWebsite}`
+        );
+        const singleData = await response.json();
+        setProduct(singleData.product);
+
+        if (singleData.product?.images?.length > 0) {
+          setMainImage(singleData.product.images[0]);
+        } else {
+          setMainImage("/placeholder.svg?height=600&width=600");
         }
       } catch (err) {
         console.error("Error loading product:", err);
@@ -111,8 +117,10 @@ const ProductDetails = ({ addToCart }: ProductDetailsProps) => {
         setMainImage("/placeholder.svg?height=600&width=600");
       }
     };
-    fetchProducts();
+
+    if (id) fetchProducts();
   }, [id, baseUrl, referenceWebsite]);
+
 
   const handleIncrease = () => setQuantity((prev) => prev + 1);
   const handleDecrease = () => quantity > 1 && setQuantity((prev) => prev - 1);
@@ -239,11 +247,10 @@ const ProductDetails = ({ addToCart }: ProductDetailsProps) => {
       <Star
         key={i}
         size={16}
-        className={`${
-          i < Math.floor(rating)
-            ? "fill-yellow-400 stroke-yellow-400"
-            : "stroke-gray-300"
-        }`}
+        className={`${i < Math.floor(rating)
+          ? "fill-yellow-400 stroke-yellow-400"
+          : "stroke-gray-300"
+          }`}
       />
     ));
   };
@@ -295,11 +302,10 @@ const ProductDetails = ({ addToCart }: ProductDetailsProps) => {
                   key={index}
                   src={fullUrl}
                   alt={`Thumbnail ${index + 1}`}
-                  className={`w-24 h-24 object-cover rounded-xl cursor-pointer border-3 transition-all duration-300 transform hover:scale-105 ${
-                    mainImage === img
-                      ? "border-purple-600 shadow-lg"
-                      : "border-gray-200 hover:border-purple-300"
-                  }`}
+                  className={`w-24 h-24 object-cover rounded-xl cursor-pointer border-3 transition-all duration-300 transform hover:scale-105 ${mainImage === img
+                    ? "border-purple-600 shadow-lg"
+                    : "border-gray-200 hover:border-purple-300"
+                    }`}
                   onClick={() => setMainImage(img)}
                 />
               );
@@ -366,11 +372,10 @@ const ProductDetails = ({ addToCart }: ProductDetailsProps) => {
                       key={s._id}
                       onClick={() => setSelectedSize(s)}
                       className={`px-4 py-2 rounded-full border text-sm font-semibold transition-all
-            ${
-              selectedSize?._id === s._id
-                ? "bg-black text-white border-black"
-                : "bg-white text-black border-gray-400 hover:border-black"
-            }`}
+            ${selectedSize?._id === s._id
+                          ? "bg-black text-white border-black"
+                          : "bg-white text-black border-gray-400 hover:border-black"
+                        }`}
                     >
                       {s.sizes}
                     </button>
@@ -399,9 +404,8 @@ const ProductDetails = ({ addToCart }: ProductDetailsProps) => {
             <div>
               <span className="font-semibold">Availability:</span>{" "}
               <span
-                className={`font-medium ${
-                  product?.stock ? "text-green-600" : "text-red-600"
-                }`}
+                className={`font-medium ${product?.stock ? "text-green-600" : "text-red-600"
+                  }`}
               >
                 {product?.stock ? "In stock" : "Out of stock"}
               </span>
@@ -440,9 +444,8 @@ const ProductDetails = ({ addToCart }: ProductDetailsProps) => {
             <button
               onClick={() => handleAddToCart(product)}
               disabled={product.stock <= 0}
-              className={`flex-1 flex items-center justify-center gap-2 px-5 py-3 text-white font-bold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02] text-sm ${
-                product?.stock <= 0 && "cursor-not-allowed opacity-50"
-              } `} // Smaller buttons
+              className={`flex-1 flex items-center justify-center gap-2 px-5 py-3 text-white font-bold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02] text-sm ${product?.stock <= 0 && "cursor-not-allowed opacity-50"
+                } `} // Smaller buttons
               style={{ background: "rgb(157 48 137)" }}
             >
               <ShoppingCart size={20} /> Add to Cart
@@ -450,9 +453,8 @@ const ProductDetails = ({ addToCart }: ProductDetailsProps) => {
             <button
               onClick={handleBuyNow}
               disabled={product.stock <= 0}
-              className={`flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-gray-800 text-white font-bold rounded-full shadow-lg transition-all duration-300 hover:bg-gray-900 hover:shadow-xl hover:scale-[1.02] text-sm ${
-                product?.stock <= 0 && "cursor-not-allowed opacity-50"
-              }`} // Smaller buttons
+              className={`flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-gray-800 text-white font-bold rounded-full shadow-lg transition-all duration-300 hover:bg-gray-900 hover:shadow-xl hover:scale-[1.02] text-sm ${product?.stock <= 0 && "cursor-not-allowed opacity-50"
+                }`} // Smaller buttons
             >
               Buy Now
             </button>
@@ -533,11 +535,10 @@ const ProductDetails = ({ addToCart }: ProductDetailsProps) => {
           {/* Button for Description Tab */}
           <button
             onClick={() => setActiveTab("description")}
-            className={`px-10 py-4 text-xl font-bold transition-all duration-300 w-full sm:w-auto ${
-              activeTab === "description"
-                ? "border-b-4 border-purple-600 text-purple-800"
-                : "text-gray-700 hover:text-purple-600"
-            }`}
+            className={`px-10 py-4 text-xl font-bold transition-all duration-300 w-full sm:w-auto ${activeTab === "description"
+              ? "border-b-4 border-purple-600 text-purple-800"
+              : "text-gray-700 hover:text-purple-600"
+              }`}
             style={{
               borderColor: activeTab === "description" ? "rgb(157 48 137)" : "",
             }}
@@ -549,11 +550,10 @@ const ProductDetails = ({ addToCart }: ProductDetailsProps) => {
           <div className=" flex justify-between gap-6 ">
             <button
               onClick={() => setActiveTab("reviews")}
-              className={`px-10 py-4 text-xl font-bold transition-all duration-300 w-full sm:w-auto ${
-                activeTab === "reviews"
-                  ? "border-b-4 border-purple-600 text-purple-800"
-                  : "text-gray-700 hover:text-purple-600"
-              }`}
+              className={`px-10 py-4 text-xl font-bold transition-all duration-300 w-full sm:w-auto ${activeTab === "reviews"
+                ? "border-b-4 border-purple-600 text-purple-800"
+                : "text-gray-700 hover:text-purple-600"
+                }`}
               style={{
                 borderColor: activeTab === "reviews" ? "rgb(157 48 137)" : "",
               }}

@@ -40,7 +40,8 @@ import Products from "./pages/Products";
 import WhatsAppButton from "./pages/WhatsAppButton";
 import LoginModal from "./components/loginModal/LoginModal";
 import AboutUs from "./pages/AboutUs";
-import {ProfilePage} from "./components/userProfile/userProfile";
+import { ProfilePage } from "./components/userProfile/userProfile";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   const location = useLocation();
@@ -50,9 +51,9 @@ function App() {
   const shouldHide = hideNavbarFooter.includes(location.pathname);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const isLoggedIn = !!localStorage.getItem("token");
-   const cartData = JSON.parse(localStorage.getItem("addtocart") || "[]");
+  const cartData = JSON.parse(localStorage.getItem("addtocart") || "[]");
   const cartItems = useSelector((state: RootState) => state.cart.items); // Get cart items from Redux store
-  const getCartItem = isLoggedIn? cartItems: cartData;
+  const getCartItem = isLoggedIn ? cartItems : cartData;
   // console.log(getCartItem,"Get Cart Item")
   const toggleCart = () => {
     setIsCartOpen((prev) => !prev);
@@ -129,6 +130,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/category/:category" element={<CategoryPage />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route
             path="/product/:id"
             element={<ProductDetails addToCart={handleAddToCart} />}
