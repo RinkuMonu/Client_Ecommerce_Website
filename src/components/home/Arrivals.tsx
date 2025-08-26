@@ -392,6 +392,18 @@ const Arrivals = ({ addToCart }: { addToCart: (product: Product) => void }) => {
                             </div>
 
                             {/* Add to Cart Overlay */}
+                            {product.stock <= 0 ?<button
+                              // onClick={() => handleAddToCart(product)}
+                              className={`absolute bottom-0 left-0 w-full text-white py-3 text-center font-semibold transition-all duration-300 z-20 ${
+                                hoveredProduct === product._id
+                                  ? "translate-y-0 opacity-100"
+                                  : "translate-y-full opacity-0"
+                              }`}
+                              style={{ background: "rgb(157 48 137)" }}
+                              disabled={true}
+                            >
+                              Out of Stock
+                            </button> :
                             <button
                               onClick={() => handleAddToCart(product)}
                               className={`absolute bottom-0 left-0 w-full text-white py-3 text-center font-semibold transition-all duration-300 z-20 ${
@@ -402,7 +414,7 @@ const Arrivals = ({ addToCart }: { addToCart: (product: Product) => void }) => {
                               style={{ background: "rgb(157 48 137)" }}
                             >
                               ADD TO CART
-                            </button>
+                            </button>}
                           </div>
 
                           {/* Product Info */}

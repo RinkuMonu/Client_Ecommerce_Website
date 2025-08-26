@@ -40,6 +40,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [addedProduct, setAddedProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
+  
   // Generate random review count and rating if not provided
   const ratedProduct = useMemo(() => {
     return {
@@ -133,6 +134,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       ? imagePath
       : `http://api.jajamblockprints.com${imagePath}`;
   };
+  const outOfStock = !ratedProduct || ratedProduct.stock <= 0;
 
   return (
     <>
@@ -199,6 +201,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 style={{ color: "rgb(157 48 137)" }}
                 title="Add to Cart"
                 aria-label="Add to cart"
+                disabled={product.stock <= 0}
               >
                 <ShoppingCart size={16} />
               </button>
@@ -229,14 +232,24 @@ const ProductCard = ({ product }: ProductCardProps) => {
                   : "translate-y-full opacity-0"
               }`}
             >
-              <button
-                  onClick={(e) => handleAddToCart(e, product)}
-                className="w-full text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 hover:scale-105"
-                style={{ background: "rgb(157 48 137)" }}
-                aria-label="Add to cart"
-              >
-                ADD TO CART
-              </button>
+
+            <button
+  onClick={(e) => {
+    if (outOfStock) return;        // safety guard
+    handleAddToCart(e, product);
+  }}
+  disabled={outOfStock}
+  className={[
+    "w-full text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300",
+    outOfStock
+      ? "opacity-50 cursor-not-allowed pointer-events-none"
+      : "hover:scale-105",
+  ].join(" ")}
+  style={{ background: "rgb(157 48 137)" }}
+  aria-label={outOfStock ? "Out of Stock" : "Add to cart"}
+>
+  {outOfStock ? "Out of Stock" : "Add to Cart"}
+</button>
             </div>
           </div>
 

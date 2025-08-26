@@ -224,6 +224,8 @@ const TrendingProducts = ({
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
+const outOfStock = !products || products.stock >= 0;
+
 
   return (
     <section className="py-16 px-12 bg-white">
@@ -396,6 +398,33 @@ const TrendingProducts = ({
                             </div>
 
                             {/* Add to Cart Overlay */}
+                             {/* <button
+  onClick={() => {
+    if (outOfStock) return;   // safety guard
+    handleAddToCart(product);
+  }}
+  disabled={outOfStock}
+  type="button"
+  className={`absolute bottom-0 left-0 w-full text-white py-3 text-center font-semibold transition-all duration-300 z-20
+    ${hoveredProduct === product._id ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}
+    ${outOfStock ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:scale-105"}
+  `}
+  style={{ background: "rgb(157 48 137)" }}
+>
+  {outOfStock ? "OUT OF STOCK" : "ADD TO CART"}
+</button> */}
+                              {product.stock <= 0 ?<button
+                              // onClick={() => handleAddToCart(product)}
+                              className={`absolute bottom-0 left-0 w-full text-white py-3 text-center font-semibold transition-all duration-300 z-20 ${
+                                hoveredProduct === product._id
+                                  ? "translate-y-0 opacity-100"
+                                  : "translate-y-full opacity-0"
+                              }`}
+                              style={{ background: "rgb(157 48 137)" }}
+                              disabled={true}
+                            >
+                              Out of Stock
+                            </button> :
                             <button
                               onClick={() => handleAddToCart(product)}
                               className={`absolute bottom-0 left-0 w-full text-white py-3 text-center font-semibold transition-all duration-300 z-20 ${
@@ -406,7 +435,8 @@ const TrendingProducts = ({
                               style={{ background: "rgb(157 48 137)" }}
                             >
                               ADD TO CART
-                            </button>
+                            </button>}     
+
                           </div>
 
                           {/* Product Info */}
@@ -629,22 +659,40 @@ const TrendingProducts = ({
                   </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button
-                    onClick={() => handleAddToCart(selectedProduct)}
-                    className="flex-1 text-white font-semibold py-3 px-6 rounded-lg transition-all flex items-center justify-center gap-2 hover:shadow-lg"
-                    style={{ background: "rgb(157 48 137)" }}
-                  >
-                    <ShoppingCart size={18} />
-                    <span>Add to Cart</span>
-                  </button>
-                  <button
-                    onClick={() => handleAddToCart(selectedProduct)}
-                    className="flex-1 bg-gray-800 hover:bg-gray-900 text-white font-semibold py-3 px-6 rounded-lg transition-all flex items-center justify-center gap-2 hover:shadow-lg"
-                  >
-                    <span>Buy Now</span>
-                  </button>
-                </div>
+               <div className="flex flex-col sm:flex-row gap-4">
+  {/* Add to Cart */}
+  <button
+    onClick={(e) => {
+      if (outOfStock) return; // safety guard
+      handleAddToCart(selectedProduct);
+    }}
+    disabled={outOfStock}
+    type="button"
+    className={`flex-1 text-white font-semibold py-3 px-6 rounded-lg transition-all flex items-center justify-center gap-2
+      ${outOfStock ? "opacity-50 cursor-not-allowed" : "hover:shadow-lg"}
+    `}
+    style={{ background: "rgb(157 48 137)" }}
+  >
+    <ShoppingCart size={18} />
+    <span>{outOfStock ? "Out of Stock" : "Add to Cart"}</span>
+  </button>
+
+  {/* Buy Now */}
+  <button
+    onClick={(e) => {
+      if (outOfStock) return; // safety guard
+      // yahan aap apna buyNow() ya checkout() function call karna chahte ho
+      handleAddToCart(selectedProduct); 
+    }}
+    disabled={outOfStock}
+    type="button"
+    className={`flex-1 bg-gray-800 text-white font-semibold py-3 px-6 rounded-lg transition-all flex items-center justify-center gap-2
+      ${outOfStock ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-900 hover:shadow-lg"}
+    `}
+  >
+    <span>{outOfStock ? "Out of Stock" : "Buy Now"}</span>
+  </button>
+</div>
               </div>
             </div>
           </div>
