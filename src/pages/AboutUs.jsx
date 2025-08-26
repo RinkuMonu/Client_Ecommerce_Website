@@ -33,7 +33,7 @@ export default function AboutUs() {
                 Est. 1981 | Handcrafted in Rajasthan
               </span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#9d3089]">Shree Shyam Block Prints</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#9d3089]">Shree Shyam Block Prints</h2> 
             <p className="text-lg text-gray-700 leading-relaxed">
               For more than 40 years, Shree Shyam Block Prints has been keeping India’s textile traditions alive. Started in 1981 by <strong>Ram Vinod Shukla</strong>, we are a family-run production unit in Rajasthan, known for hand block printing styles like Bagru, Dabu, and Sanganeri.
             </p>
