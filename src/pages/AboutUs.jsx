@@ -33,7 +33,17 @@ export default function AboutUs() {
                 Est. 1981 | Handcrafted in Rajasthan
               </span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#9d3089]">Shree Shyam Block Prints</h2>
+            <div>
+              {/* Shop Name */}
+              <h2 className="text-3xl md:text-4xl font-bold text-[#9d3089]">
+                Shree Shyam Block Prints
+              </h2>
+
+              {/* Owner Name */}
+              <p className="text-sm italic text-gray-500 mt-1 font-bold">
+                Owner :- Ram Vinod Shukla
+              </p>
+            </div>
             <p className="text-lg text-gray-700 leading-relaxed">
               For over 40 years, Shree Shyam Block Prints has been a proud guardian of India's rich textile heritage.
               Established in 1981, we are a fully in-house production unit based in Rajasthan, specializing in
