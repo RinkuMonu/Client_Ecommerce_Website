@@ -476,7 +476,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
                                 className="flex items-center px-4 py-2.5 text-sm group/link transition-colors duration-200"
                                 onClick={() => setMenuOpen(false)}
                               >
-                                <span className="relative truncate">
+                                <span className="relative truncate"> 
                                   {item?.name}
                                   <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-purple-500 transition-all duration-300 group-hover/link:w-full"></span> 
                                 </span>
