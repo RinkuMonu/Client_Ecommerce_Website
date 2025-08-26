@@ -96,7 +96,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
 
   const handleCategorySelect = useCallback(
     (category: string) => {
-      navigate(`/category/${category.toLowerCase()}`);
+      navigate(`/category/${slugify(category.toLowerCase())}`);
       setSearchQuery("");
       setMoreMenuOpen(false);
       setMenuOpen(false);
@@ -112,7 +112,9 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
       try {
         const res = await fetch(`${baseUrl}/website/${referenceWebsite}`);
         const data = await res.json();
+        console.log(data);
 
+        setCategories(data?.website?.categories)
         // Group items by subcategory
         const grouped = {};
         if (Array.isArray(data?.website?.categories)) {
@@ -201,10 +203,10 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
       style={{ borderColor: primaryColor }}
     >
       {categories
-        .filter((cat) => cat.toLowerCase().includes(searchQuery.toLowerCase()))
+        .filter((cat) => cat?.name.toLowerCase().includes(searchQuery.toLowerCase()))
         .map((cat, index) => (
           <div
-            key={cat}
+            key={index}
             className="px-4 xl:px-6 py-3 xl:py-4 cursor-pointer transition-all duration-200 flex items-center justify-between border-b last:border-b-0 hover:shadow-md"
             style={{
               borderColor: primaryColor,
@@ -219,13 +221,13 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
               e.currentTarget.style.background =
                 index % 2 === 0 ? "transparent" : "rgba(56, 77, 137, 0.05)";
             }}
-            onClick={() => handleCategorySelect(cat)}
+            onClick={() => handleCategorySelect(cat?.name)}
           >
             <span
               className="font-bold text-sm xl:text-base"
               style={{ color: textColor }}
             >
-              {cat}
+              {cat?.name}
             </span>
             <div className="flex items-center">
               <span
