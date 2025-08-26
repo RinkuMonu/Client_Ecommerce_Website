@@ -467,7 +467,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
                       </div>
 
                       {/* Hover Tooltip */}
-                      <div className="absolute top-full mt-1 left-0 w-50 bg-[#FFF3FD] border border-gray-100 text-gray-800 rounded-lg shadow-xl opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transform origin-top transition-all duration-200 ease-out z-50">
+                      <div className="absolute top-full mt-1 left-0 w-50 bg-[#FFF3FD] border border-gray-100 text-gray-800 rounded-lg shadow-xl hidden scale-95 group-hover:flex group-hover:scale-100 transform origin-top transition-all duration-200 ease-out z-50">
                         <ul className="py-1">
                           {items.map((item) => (
                             <li key={item._id}>
@@ -476,9 +476,9 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
                                 className="flex items-center px-4 py-2.5 text-sm group/link transition-colors duration-200"
                                 onClick={() => setMenuOpen(false)}
                               >
-                                <span className="relative truncate">
+                                <span className="relative truncate"> 
                                   {item?.name}
-                                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-purple-500 transition-all duration-300 group-hover/link:w-full"></span>
+                                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-purple-500 transition-all duration-300 group-hover/link:w-full"></span> 
                                 </span>
                                 {item?.icon && (
                                   <span className="ml-2 text-gray-400 group-hover/link:text-purple-400 transition-colors">
