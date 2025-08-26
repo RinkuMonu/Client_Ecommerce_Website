@@ -135,6 +135,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
   }, [baseUrl, referenceWebsite]);
 
   function slugify(text) {
+    if (typeof text !== "string") return "";
     return text
       .toLowerCase()
       .trim()
@@ -290,7 +291,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
                     className="text-xs truncate"
                     style={{ color: primaryColor }}
                   >
-                    {user.email}
+                    {user?.email}
                   </p>
                 </div>
               </Link>
@@ -548,10 +549,10 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
 
                         <div className="p-4">
                           <div className="grid grid-cols-2 gap-2">
-                            {categories.slice(6).map((item) => (
+                            {categories.slice(6).map((item, index) => (
                               <Link
-                                key={item}
-                                to={`/category/${slugify(item)}`}
+                                key={index}
+                                to={`/category/${slugify(item?.name)}`}
                                 className="relative group px-4 py-3 text-sm font-semibold transition-all duration-300 rounded-lg border"
                                 style={{
                                   color: textColor,
@@ -579,10 +580,10 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
                                   e.currentTarget.style.borderColor =
                                     "rgba(157, 48, 137, 0.1)";
                                 }}
-                                onClick={() => handleCategorySelect(item)}
+                                onClick={() => handleCategorySelect(item?.name)}
                               >
                                 <div className="flex items-center justify-between text-xs">
-                                  <span>{item}</span>
+                                  <span>{item?.name}</span>
                                   <svg
                                     className="w-3 h-3 opacity-50 group-hover:opacity-100 transition-opacity"
                                     fill="none"
@@ -1023,7 +1024,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
                 </div>
               ))}
               {/* More Categories Dropdown */}
-              {categories.length > 6 && (
+              {categories?.length > 6 && (
                 <div className="relative" ref={moreMenuRef}>
                   <button
                     onClick={() => setMoreMenuOpen(!moreMenuOpen)}
@@ -1077,10 +1078,10 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
 
                       <div className="p-4">
                         <div className="grid grid-cols-2 gap-2">
-                          {categories.slice(6).map((item) => (
+                          {categories.slice(6).map((item, index) => (
                             <Link
-                              key={item}
-                              to={`/category/${slugify(item)}`}
+                              key={index}
+                              to={`/category/${slugify(item?.name)}`}
                               className="relative group px-4 py-3 text-sm font-semibold transition-all duration-300 rounded-lg border"
                               style={{
                                 color: textColor,
@@ -1108,10 +1109,10 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick, cartItemCount }) => {
                                 e.currentTarget.style.borderColor =
                                   "rgba(157, 48, 137, 0.1)";
                               }}
-                              onClick={() => handleCategorySelect(item)}
+                              onClick={() => handleCategorySelect(item?.name)}
                             >
                               <div className="flex items-center justify-between text-xs">
-                                <span>{item}</span>
+                                <span>{item?.name}</span>
                                 <svg
                                   className="w-3 h-3 opacity-50 group-hover:opacity-100 transition-opacity"
                                   fill="none"
