@@ -268,6 +268,9 @@ export default function Footer() {
                     <h5 className="font-semibold text-gray-800 mb-1">
                       Our Location
                     </h5>
+                    <h6 className="font-semibold text-gray-600 mb-1">
+                      Operating Address
+                    </h6>
                     <p className="text-gray-600 text-sm leading-relaxed">
                        PLOT NO 21-A (2), RAMDWARA
                       COLONY-2, SANGANER, JAIPUR-302029
@@ -361,10 +364,10 @@ export default function Footer() {
                   },
                   { title: "Shipping Policy", path: "/shipping-policy" },
                   {
-                    title: "Returns & Exchanges",
+                    title: "Return, Refund & Exchange Policy",
                     path: "/returns-and-exchanges",
                   },
-                  // { title: "Cancellation Policy", path: "/cancellation_policy" },
+                  { title: "Cancellation Policy", path: "/cancellation_policy" },
                 ].map((item, index, array) => (
                   <div key={index} className="flex items-center">
                     <Link
