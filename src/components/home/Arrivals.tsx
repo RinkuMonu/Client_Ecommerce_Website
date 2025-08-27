@@ -437,14 +437,14 @@ const Arrivals = ({ addToCart }: { addToCart: (product: Product) => void }) => {
                             </div>
                               
                             {/* Rating */}
-                            <div className="flex items-center mb-3">
+                            {/* <div className="flex items-center mb-3">
                               <div className="flex mr-2">
                                 {renderStars(product.rating)}
                               </div>
                               <span className="text-xs text-gray-500">
                                 ({product.reviewCount} Reviews)
                               </span>
-                            </div>
+                            </div> */}
 
                             {/* Price */}
                             <div className="flex items-center justify-between">

@@ -40,7 +40,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [addedProduct, setAddedProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
-  
+
   // Generate random review count and rating if not provided
   const ratedProduct = useMemo(() => {
     return {
@@ -52,8 +52,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
   }, [product]);
 
   const handleAddToCart = (e: React.MouseEvent, product: Product) => {
-     e.preventDefault(); // Prevent default behavior
-  e.stopPropagation();
+    e.preventDefault(); // Prevent default behavior
+    e.stopPropagation();
     const token = localStorage.getItem("token");
 
     const cartItem = {
@@ -196,7 +196,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               }`}
             >
               <button
-                  onClick={(e) => handleAddToCart(e, product)}
+                onClick={(e) => handleAddToCart(e, product)}
                 className="bg-white rounded-full p-2 shadow-lg transition-all hover:scale-110"
                 style={{ color: "rgb(157 48 137)" }}
                 title="Add to Cart"
@@ -232,24 +232,23 @@ const ProductCard = ({ product }: ProductCardProps) => {
                   : "translate-y-full opacity-0"
               }`}
             >
-
-            <button
-  onClick={(e) => {
-    if (outOfStock) return;        // safety guard
-    handleAddToCart(e, product);
-  }}
-  disabled={outOfStock}
-  className={[
-    "w-full text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300",
-    outOfStock
-      ? "opacity-50 cursor-not-allowed pointer-events-none"
-      : "hover:scale-105",
-  ].join(" ")}
-  style={{ background: "rgb(157 48 137)" }}
-  aria-label={outOfStock ? "Out of Stock" : "Add to cart"}
->
-  {outOfStock ? "Out of Stock" : "Add to Cart"}
-</button>
+              <button
+                onClick={(e) => {
+                  if (outOfStock) return; // safety guard
+                  handleAddToCart(e, product);
+                }}
+                disabled={outOfStock}
+                className={[
+                  "w-full text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300",
+                  outOfStock
+                    ? "opacity-50 cursor-not-allowed pointer-events-none"
+                    : "hover:scale-105",
+                ].join(" ")}
+                style={{ background: "rgb(157 48 137)" }}
+                aria-label={outOfStock ? "Out of Stock" : "Add to cart"}
+              >
+                {outOfStock ? "Out of Stock" : "Add to Cart"}
+              </button>
             </div>
           </div>
 
@@ -270,14 +269,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
             </p>
 
             {/* Enhanced Rating Display */}
-            <div className="flex items-center mb-3 gap-1">
+            {/* <div className="flex items-center mb-3 gap-1">
               <div className="flex mr-1">
                 {renderStars(ratedProduct.rating ?? 0)}
               </div>
               <span className="text-xs text-gray-500">
                 ({ratedProduct.reviewCount?.toLocaleString() ?? 0})
               </span>
-            </div>
+            </div> */}
 
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
