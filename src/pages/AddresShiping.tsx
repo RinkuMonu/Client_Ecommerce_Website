@@ -1239,7 +1239,7 @@ function AddressShipping({ cartItems }) {
 
       // ✅ STEP 2: INITIATE ZAAKPAY PAYMENT WITH ORDER ID
       const paymentData = {
-        amount: "1",
+        amount: orderAmount.toString(),
         email: userdata.email || user?.email,
         orderId: orderId
       };
