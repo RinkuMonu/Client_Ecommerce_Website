@@ -655,7 +655,7 @@ export default function Footer() {
                         icon: <Facebook className="h-5 w-5" />,
                         label: "Facebook",
                         color: "#1877F2",
-                        link: "#",
+                        link: "https://www.facebook.com/jajamblockprints",
                       },
                       {
                         icon: <Twitter className="h-5 w-5" />,
